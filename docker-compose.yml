@@ -1,0 +1,25 @@
+version: '3'
+services:
+  conversion-service:
+    build: ./image-conversion-service
+    ports:
+      - "3001:3001"
+
+  compression-service:
+    build: ./image-compression-service
+    ports:
+      - "3002:3002"
+
+  resizing-service:
+    build: ./image-resizing-service
+    ports:
+      - "3003:3003"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - conversion-service
+      - compression-service
+      - resizing-service
